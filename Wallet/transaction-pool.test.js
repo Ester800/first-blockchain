@@ -8,7 +8,7 @@ describe('TransactionPool', () => {
     beforeEach(() => {
         tp = new TransactionPool();
         wallet = new Wallet();
-        transaction = Transaction.newTransaction(wallet, 'r4nd-4add355', 30);
+        transaction = Transaction.newTransaction(wallet, 'r4nd-4ddr355', 30);
         tp.updateOrAddTransaction(transaction);
     });
 
@@ -18,7 +18,7 @@ describe('TransactionPool', () => {
 
     it('updates a transaction in the pool', () => {
         const oldTransaction = JSON.stringify(transaction);
-        const newTransaction = transaction.update(wallet, 'foo-4drr355', 40);
+        const newTransaction = transaction.update(wallet, 'foo-4ddr355', 40);
         tp.updateOrAddTransaction(newTransaction);
 
         expect(JSON.stringify(tp.transactions.find(t => t.id === newTransaction.id))).not.toEqual(oldTransaction);
