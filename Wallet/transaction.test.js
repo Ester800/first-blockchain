@@ -60,4 +60,4 @@ describe('Transaction', () => {
             expect(transaction.outputs.find(output => output.address === nextRecipient).amount).toEqual(nextAmount);
         });
     });
-});
+
