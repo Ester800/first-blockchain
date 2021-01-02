@@ -1,12 +1,14 @@
 const Wallet = require('./index');
 const TransactionPool = require('./transaction-pool');
+const Blockchain = require('../blockchain');
 
 describe('Wallet', () => {
-    let wallet, tp;
+    let wallet, tp, bc;
 
     beforeEach(() => {
         wallet = new Wallet();
         tp = new TransactionPool();
+        bc = new Blockchain();
     });
 
     describe('creating a transaction', () => {
