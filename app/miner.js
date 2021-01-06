@@ -7,32 +7,34 @@ class Miner {
         this.transactionPool = transactionPool;
         this.wallet = wallet;
         this.p2pServer = p2pServer;
-    }
+    } 
 
+//  CREATE A FUNCTION THAT ALLOWS USERS TO MINE BLOCKS AND EARN REWARDS - TIES TOGETHER EVERYTHING WE'VE BUILT UP TILL NOW
+//  ...first it will grab transactions from the pool
+//  ...next it create a block from those transactions
+//  ...third it tells the p2pServer to synchronize the chains and include the new block
+//  ...finally it will clear the transaction pool of transactions
     mine() {
         const validTransactions = this.transactionPool.validTransactions();
 
-        //  include a reward for the miner 
-        validTransactions.push(
-            Transaction.rewardTransaction(this.wallet, Wallet.blockchainWallet())
+        // 1. include a reward for the miner
+        validTransactions.push(Transaction.rewardTransaction(this.wallet, Wallet.blockchainWallet())
         );
-
-        //  create a block consisting of the valid transactions
+        // 2. create a block consisting of the valid transactions
         const block = this.blockchain.addBlock(validTransactions);
         
-        //  synchronize the chains in the peer-to-peer server
+        // 3. synchronize the chains in the peer-to-peer server
         this.p2pServer.syncChains();
-        
-        //  clear the transaction pool
+
+        // 4. clear the transaction pool
         this.transactionPool.clear();
 
-        //  broadcast to every miner to clear their transaction pools
+        // 5. broadcast to every miner to clear their transaction pool
         this.p2pServer.broadcastClearTransactions();
 
         return block;
     }
 }
 
+
 module.exports = Miner;
-
-
